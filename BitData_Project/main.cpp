@@ -16,7 +16,7 @@ void ListData(BitData _data)
         cout << i << " ~> ";
         if (_data.get(i))
         {
-            cout << "TRUE";
+            cout << "TRUE ";
         }
         else
         {
@@ -31,6 +31,20 @@ void ListData(BitData _data)
             cout << endl;
         }
     }
+    cout << endl;
+}
+
+void ListInt(BitData _data)
+{
+    cout << "Current Bit Value: ";
+    for (int i = 0; i < INT_BITS; ++i)
+    {
+        cout << _data.get(i);
+    }
+
+    cout << endl << endl;
+
+    cout << "Current Integer Value: " << dat.getData() << endl;
 }
 
 void WriteMessage()
@@ -38,6 +52,10 @@ void WriteMessage()
     cout << endl;
     cout << "Choose Your Fate: " << endl;
     cout << "[1] Set Data Boolean" << endl;
+    cout << "[2] Randomize Data Boolean" << endl;
+    cout << "[3] Set All Data To 'TRUE'" << endl;
+    cout << "[4] Set All Data To 'FALSE'" << endl;
+    cout << "[5] Exit" << endl;
 }
 
 void ResetInput()
@@ -52,6 +70,7 @@ int main(void)
     while (true)
     {
         ListData(dat);
+        ListInt(dat);
         WriteMessage();
 
         char choice;
@@ -68,6 +87,7 @@ int main(void)
         switch (choice)
         {
         case '1':
+#pragma region SetData
             cout << "Choose between index 0 ~ " << INT_BITS - 1 << ": ";
             while (!(cin >> value))
             {
@@ -92,12 +112,12 @@ int main(void)
             if (flag == 1)
             {
                 bFlag = true;
-                cout << "You have set index '" << value << "' and flag 'TRUE'" << endl;
+                cout << "You have set index '" << value << "' with flag 'TRUE'" << endl;
             }
             else if (flag == 2)
             {
                 bFlag = false;
-                cout << "You have set index '" << value << "' and flag 'FALSE'" << endl;
+                cout << "You have set index '" << value << "' with flag 'FALSE'" << endl;
             }
             else
             {
@@ -106,6 +126,39 @@ int main(void)
             }
             dat.set(value, bFlag);
             break;
+#pragma endregion
+        case '2':
+#pragma region RandomizeData
+            for (int i = 0; i < INT_BITS; ++i)
+            {
+                int random = rand() % 2;
+
+                dat.set(i, random);
+            }
+            cout << "Randomizing data boolean variables..." << endl;
+            break;
+#pragma endregion
+        case '3':
+#pragma region SetAllTrue
+            for (int i = 0; i < INT_BITS; ++i)
+            {
+                dat.set(i, true);
+            }
+            cout << "Setting all data boolean variables to 'TRUE'" << endl;
+            break;
+#pragma endregion
+        case '4':
+#pragma region SetAllFalse
+            for (int i = 0; i < INT_BITS; ++i)
+            {
+                dat.set(i, false);
+            }
+            cout << "Setting all data boolean variables to 'FALSE'" << endl;
+            break;
+#pragma endregion
+        case '5':
+            system("PAUSE");
+            return 0;
         default:
             cout << "Invalid choice!" << endl;
             break;

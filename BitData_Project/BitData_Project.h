@@ -18,5 +18,6 @@ public:
 private:
 
     unsigned int m_data;
+    unsigned int m_value[];
 };
 
